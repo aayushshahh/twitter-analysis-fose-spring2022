@@ -1,23 +1,72 @@
 import "./Sidebar.css";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 function Sidebar() {
+  const [homeActive, setHomeActive] = useState(true);
+  const [profileActive, setProfileActive] = useState(false);
+  const [historyActive, setHistoryActive] = useState(false);
+
+  function onHomeClick() {
+    setHomeActive(true);
+    setProfileActive(false);
+    setHistoryActive(false);
+  }
+
+  function onProfileClick() {
+    setHomeActive(false);
+    setProfileActive(true);
+    setHistoryActive(false);
+  }
+
+  function onHistoryClick() {
+    setHomeActive(false);
+    setProfileActive(false);
+    setHistoryActive(true);
+  }
+
   return (
     <div className="sidebar-base">
-      <Link to="/" className="home-link">
-        <div className="sidebar-content home-div">
+      <Link to="/" className="sidebar-link home-link" onClick={onHomeClick}>
+        <div
+          className={
+            homeActive
+              ? "active-sidebar sidebar-content home-div"
+              : "sidebar-content home-div"
+          }
+        >
           <i className="bx bx-home-alt "></i>
           <span className="home-sidebar-label sidebar-text">Home</span>
         </div>
       </Link>
-      <Link to="/profile" className="profile-link">
-        <div className="sidebar-content profile-div">
+      <Link
+        to="/profile"
+        className="sidebar-link profile-link"
+        onClick={onProfileClick}
+      >
+        <div
+          className={
+            profileActive
+              ? "active-sidebar sidebar-content profile-div"
+              : "sidebar-content profile-div"
+          }
+        >
           <i className="bx bx-user"></i>
           <span className="profile-sidebar-label sidebar-text">Profile</span>
         </div>
       </Link>
-      <Link to="/history" className="history-link">
-        <div className="sidebar-content history-div">
+      <Link
+        to="/history"
+        className="sidebar-link history-link"
+        onClick={onHistoryClick}
+      >
+        <div
+          className={
+            historyActive
+              ? "active-sidebar sidebar-content history-div"
+              : "sidebar-content history-div"
+          }
+        >
           <i className="bx bx-history"></i>
           <span className="history-sidebar-label sidebar-text">History</span>
         </div>
