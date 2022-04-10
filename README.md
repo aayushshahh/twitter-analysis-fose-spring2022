@@ -8,14 +8,13 @@
 5. Anuhya Mandalapu
 
 Staging: 
-https://human-emotions-on-twitter.herokuapp.com/</br>
+https://twitter-analysis-staging.herokuapp.com</br>
 Production:
-https://emotions-on-twit.herokuapp.com/
+https://twitter-analysis-production.herokuapp.com
 
-We are creating a webpage using react, Where we are creating a search bar and has a search button next to it.
-When text is entered in the search bar and the button is cliked the text gets echoed on the page.
+Our project aims at creating a web app that can analyse and predict a user's personality based on their tweets. The tech stack used is React.js, Node.js, Python.
 
-After this we deployed the webpage to heroku which can be accessed using the above link.
+Backend Github Repo: https://github.com/chaitanyaarepalli47/BackEnd-HumanEmotionOnTwitter/blob/main/twitterfetchnewnpm.js
 
 # ArchitecturalDiagram
 <img src="Architectural-Diagram.jpeg" width="500"/> 
