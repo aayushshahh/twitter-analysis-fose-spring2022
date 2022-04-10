@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./Login.css";
+import "./LoginSignup.css";
 
 function Login() {
   const [usernameValue, setUsernameValue] = useState("");
@@ -19,7 +19,7 @@ function Login() {
   return (
     <div id="loginModal" className="login-modal">
       <i className="bx bx-x" onClick={closeButtonClick}></i>
-      <div className="login-title">Log In</div>
+      <div className="login-title">Sign In</div>
       <form onSubmit={onSubmitHandler}>
         <label className="username-login-label">
           Username/E-mail

@@ -4,6 +4,9 @@ function Header() {
   function onLogButtonClick() {
     document.getElementById("loginModal").className = "login-modal-active";
   }
+  function onSignUpButtonClick() {
+    document.getElementById("signupModal").className = "signup-modal-active";
+  }
 
   return (
     <div className="header-base">
@@ -11,9 +14,13 @@ function Header() {
         TWITTER ANALYSIS
       </a>
       <button type="button" className="login-button" onClick={onLogButtonClick}>
-        LOG IN
+        SIGN IN
       </button>
-      <button type="button" className="signup-button">
+      <button
+        type="button"
+        className="signup-button"
+        onClick={onSignUpButtonClick}
+      >
         SIGN UP
       </button>
     </div>

@@ -1,4 +1,4 @@
-#loginModal {
+#loginModal, #signupModal {
   width: 28.75rem;
   height: 100vh;
   z-index: 3;
@@ -7,15 +7,16 @@
   padding-top: 2.5rem;
   padding-left: 2.5rem;
   top: 0;
+  overflow-y: scroll;
 }
 
-.login-modal {
+.login-modal, .signup-modal {
   position: fixed;
   right: -31.25rem;
   transition: 0.4s ease-in-out;
 }
 
-.login-modal-active {
+.login-modal-active, .signup-modal-active {
   position: fixed;
   right: 0;
   transition: 0.4s ease-in-out;
@@ -58,6 +59,7 @@
 .submit-button {
   height: 3.75rem;
   width: auto;
+  margin-bottom: 6.25rem;
   background-image: linear-gradient(to bottom right, #832232, #c01632);
   border: none;
   color: #fffbfa;
