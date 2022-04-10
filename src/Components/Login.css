@@ -1,17 +1,77 @@
+#loginModal {
+  width: 28.75rem;
+  height: 100vh;
+  z-index: 3;
+  background-color: #FFFBFA;
+  box-shadow: -10px 10px 20px rgba(40, 11, 15, 0.04);
+  padding-top: 2.5rem;
+  padding-left: 2.5rem;
+  top: 0;
+}
+
 .login-modal {
   position: fixed;
-  right: -21.25rem;
-  width: 18.75rem;
-  height: auto;
+  right: -31.25rem;
   transition: 0.4s ease-in-out;
-  padding-right: 2.5rem;
 }
 
 .login-modal-active {
   position: fixed;
   right: 0;
-  width: 18.75rem;
-  height: auto;
-  padding-right: 2.5rem;
   transition: 0.4s ease-in-out;
+}
+
+.bx-x {
+  font-size: 2.5rem;
+  color: #2c363f;
+  cursor: pointer;
+}
+
+.login-title {
+  font-family: 'Lora', serif;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-top: 3.75rem;
+  margin-bottom: 3.75rem;
+}
+
+.username-login-label, .password-login-label {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 1.5rem;
+}
+
+.username-login-input, .password-login-input {
+  width: 25rem;
+  height: 3rem;
+  margin-top: 1rem;
+  margin-bottom: 2.5rem;
+  padding-left: 1rem;
+  font-family: "Work Sans", sans-serif;
+  font-size: 1rem;
+  border-radius: 1rem;
+  border: none;
+  background-color: #fffbfa;
+  box-shadow: 5px 10px 20px rgba(40, 11, 15, 0.09),
+    -2.5px -5px 10px rgba(40, 11, 15, 0.04);
+}
+
+.submit-button {
+  height: 3.75rem;
+  width: auto;
+  background-image: linear-gradient(to bottom right, #832232, #c01632);
+  border: none;
+  color: #fffbfa;
+  border-radius: 1rem;
+  font-family: "Work Sans", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.1rem;
+  padding: 0 1rem;
+  box-shadow: 5px 10px 20px rgba(40, 11, 15, 0.16);
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  box-shadow: 10px 20px 40px rgba(40, 11, 15, 0.5);
 }

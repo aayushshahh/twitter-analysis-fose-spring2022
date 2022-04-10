@@ -1,15 +1,8 @@
 import "./Header.css";
 
 function Header() {
-  var logButtonStatus = false;
   function onLogButtonClick() {
-    if (!logButtonStatus) {
-      document.getElementById("loginModal").className = "login-modal-active";
-      logButtonStatus = true;
-    } else {
-      document.getElementById("loginModal").className = "login-modal";
-      logButtonStatus = false;
-    }
+    document.getElementById("loginModal").className = "login-modal-active";
   }
 
   return (
