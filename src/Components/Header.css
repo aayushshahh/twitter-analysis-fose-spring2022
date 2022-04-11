@@ -3,6 +3,7 @@
   height: 7.5rem;
   display: flex;
   align-items: center;
+  z-index: 4;
 }
 
 .header-title-link {

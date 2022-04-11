@@ -1,6 +1,13 @@
+import { useState } from "react";
 import "./Home.css";
 
 function Home() {
+  const [twitUsername, setTwitUsername] = useState("");
+
+  function handleTwitUsernameChange(event) {
+    setTwitUsername(event.target.value);
+  }
+
   return (
     <div className="home-base">
       <div className="heading-sentence">
@@ -8,13 +15,14 @@ function Home() {
       </div>
       <div className="input-fields">
         <label className="username-label">
-          {" "}
           Twitter Username:
           <input
             className="username-input"
             type="text"
             name="username"
             placeholder="@whousername"
+            value={twitUsername}
+            onChange={handleTwitUsernameChange}
           ></input>
         </label>
       </div>

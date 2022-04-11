@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   box-shadow: 10px 10px 20px rgba(40, 11, 15, 0.04);
+  margin-right: 2.5rem;
 }
 
 .sidebar-link {
@@ -13,7 +14,7 @@
 .sidebar-content {
   height: 3.75rem;
   display: flex;
-  gap: 0.5rem;
+  gap: 1rem;
   align-items: center;
   padding-left: 2.5rem;
 }
@@ -33,4 +34,8 @@
   box-shadow: inset 5px 5px 10px rgba(40, 11, 15, 0.09),
     inset -5px -5px 10px rgba(40, 11, 15, 0.09);
   transition: 0.4s ease-in-out;
+}
+
+.log-out-div {
+  margin-top: auto;
 }

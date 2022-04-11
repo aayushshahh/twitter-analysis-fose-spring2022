@@ -1,15 +1,11 @@
 import "./Header.css";
 
 function Header() {
-  var logButtonStatus = false;
   function onLogButtonClick() {
-    if (!logButtonStatus) {
-      document.getElementById("loginModal").className = "login-modal-active";
-      logButtonStatus = true;
-    } else {
-      document.getElementById("loginModal").className = "login-modal";
-      logButtonStatus = false;
-    }
+    document.getElementById("loginModal").className = "login-modal-active";
+  }
+  function onSignUpButtonClick() {
+    document.getElementById("signupModal").className = "signup-modal-active";
   }
 
   return (
@@ -18,9 +14,13 @@ function Header() {
         TWITTER ANALYSIS
       </a>
       <button type="button" className="login-button" onClick={onLogButtonClick}>
-        LOG IN
+        SIGN IN
       </button>
-      <button type="button" className="signup-button">
+      <button
+        type="button"
+        className="signup-button"
+        onClick={onSignUpButtonClick}
+      >
         SIGN UP
       </button>
     </div>
