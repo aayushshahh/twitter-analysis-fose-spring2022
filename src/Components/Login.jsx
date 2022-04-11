@@ -5,6 +5,18 @@ function Login() {
   const [usernameValue, setUsernameValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   function onSubmitHandler(event) {
+    var eu = document.getElementsByClassName("empty-username");
+    var ep = document.getElementsByClassName("empty-password");
+    if (usernameValue === "") {
+      eu[0].style.display = "inline-block";
+    } else {
+      eu[0].style.display = "none";
+    }
+    if (passwordValue === "") {
+      ep[0].style.display = "inline-block";
+    } else {
+      ep[0].style.display = "none";
+    }
     event.preventDefault();
   }
   function handleUsernameChange(event) {
@@ -30,6 +42,12 @@ function Login() {
             onChange={handleUsernameChange}
           ></input>
         </label>
+        <div className="error-div">
+          <span className="empty-username">
+            username/email can not be empty
+          </span>
+          <span className="incorrect-username">incorrect username/email</span>
+        </div>
         <label className="password-login-label">
           Password
           <input
@@ -39,6 +57,10 @@ function Login() {
             onChange={handlePasswordChange}
           ></input>
         </label>
+        <div className="error-div">
+          <span className="empty-password">password can not be empty</span>
+          <span className="incorrect-password">incorrect password</span>
+        </div>
         <button type="submit" className="submit-button">
           LOG IN
         </button>
