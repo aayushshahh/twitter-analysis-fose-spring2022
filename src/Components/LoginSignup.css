@@ -34,11 +34,13 @@
   font-size: 2rem;
   margin-top: 3.75rem;
   margin-bottom: 3.75rem;
+  color: #2c363f;
 }
 
 .username-login-label, .password-login-label {
   font-family: 'Work Sans', sans-serif;
   font-size: 1.5rem;
+  color: #2c363f;
 }
 
 .username-login-input, .password-login-input {

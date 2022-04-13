@@ -4,6 +4,9 @@ import "./Home.css";
 
 function Home() {
   const [twitUsername, setTwitUsername] = useState("");
+  const [personalityUsername, setPersonalityUsername] = useState("");
+  const [personalityResult, setPersonalityResult] = useState("");
+  const [personalityDescription, setPersonalityDescription] = useState("");
 
   function handleTwitUsernameChange(event) {
     setTwitUsername(event.target.value);
@@ -22,6 +25,15 @@ function Home() {
       },
     }).then((res) => {
       console.log(res.data);
+      if (twitUsername.charAt(0) !== "@") {
+        setPersonalityUsername("@" + twitUsername);
+      } else {
+        setPersonalityUsername(twitUsername);
+      }
+      setPersonalityResult(res.data.title);
+      setPersonalityDescription(res.data.description);
+      var resultDiv = document.getElementsByClassName("personality-result");
+      resultDiv[0].style.display = "block";
     });
   }
 
@@ -54,6 +66,14 @@ function Home() {
         >
           ANALYSE PERSONALITY
         </button>
+      </div>
+      <div className="personality-result">
+        <p className="personality-result-title">
+          {personalityUsername} has the personality {personalityResult}
+        </p>
+        <p className="personality-result-description">
+          {personalityDescription}
+        </p>
       </div>
     </div>
   );
