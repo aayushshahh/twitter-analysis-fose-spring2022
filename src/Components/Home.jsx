@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import "./Home.css";
 
 function Home() {
@@ -6,6 +7,22 @@ function Home() {
 
   function handleTwitUsernameChange(event) {
     setTwitUsername(event.target.value);
+  }
+
+  function analyseTweets() {
+    if (twitUsername.charAt(0) !== "@") {
+      var tempUsername = "@" + twitUsername;
+      setTwitUsername(tempUsername);
+    }
+    axios({
+      url: "https://personalitydetection.herokuapp.com/predict_personality",
+      method: "POST",
+      data: {
+        username: twitUsername,
+      },
+    }).then((res) => {
+      console.log(res.data);
+    });
   }
 
   return (
@@ -30,7 +47,11 @@ function Home() {
         <button type="button" className="show-tweets-button">
           SHOW TWEETS
         </button>
-        <button type="button" className="analyse-profile-button">
+        <button
+          type="button"
+          className="analyse-profile-button"
+          onClick={analyseTweets}
+        >
           ANALYSE PERSONALITY
         </button>
       </div>
