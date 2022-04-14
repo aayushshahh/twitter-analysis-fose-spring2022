@@ -13,6 +13,7 @@ function Home() {
   }
 
   function analyseTweets() {
+    var wtu = document.getElementsByClassName("wrong-twitter-username");
     if (twitUsername.charAt(0) !== "@") {
       var tempUsername = "@" + twitUsername;
       setTwitUsername(tempUsername);
@@ -23,18 +24,23 @@ function Home() {
       data: {
         username: twitUsername,
       },
-    }).then((res) => {
-      console.log(res.data);
-      if (twitUsername.charAt(0) !== "@") {
-        setPersonalityUsername("@" + twitUsername);
-      } else {
-        setPersonalityUsername(twitUsername);
-      }
-      setPersonalityResult(res.data.title);
-      setPersonalityDescription(res.data.description);
-      var resultDiv = document.getElementsByClassName("personality-result");
-      resultDiv[0].style.display = "block";
-    });
+    })
+      .then((res) => {
+        console.log(res.data);
+        if (twitUsername.charAt(0) !== "@") {
+          setPersonalityUsername("@" + twitUsername);
+        } else {
+          setPersonalityUsername(twitUsername);
+        }
+        setPersonalityResult(res.data.title);
+        setPersonalityDescription(res.data.description);
+        var resultDiv = document.getElementsByClassName("personality-result");
+        resultDiv[0].style.display = "block";
+        wtu[0].style.display = "none";
+      })
+      .catch((err) => {
+        wtu[0].style.display = "inline-block";
+      });
   }
 
   return (
@@ -54,6 +60,11 @@ function Home() {
             onChange={handleTwitUsernameChange}
           ></input>
         </label>
+        <div className="error-div-home">
+          <span className="wrong-twitter-username">
+            user not found / wrong username
+          </span>
+        </div>
       </div>
       <div className="action-buttons">
         <button type="button" className="show-tweets-button">

@@ -88,6 +88,6 @@
 
 }
 
-.empty-username, .incorrect-username, .empty-password, .incorrect-password {
+.empty-username, .incorrect-username, .empty-password, .incorrect-password, .incorrect-email, .duplicate-username, .empty-name, .empty-password-signup, .match-passwords {
   display: none;
 }

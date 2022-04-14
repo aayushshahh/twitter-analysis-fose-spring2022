@@ -38,6 +38,7 @@ function Login() {
           <input
             className="username-login-input"
             type="text"
+            placeholder="whoisthis@whomail.com / whousername"
             value={usernameValue}
             onChange={handleUsernameChange}
           ></input>
@@ -53,6 +54,7 @@ function Login() {
           <input
             className="password-login-input"
             type="password"
+            placeholder="s3cret"
             value={passwordValue}
             onChange={handlePasswordChange}
           ></input>

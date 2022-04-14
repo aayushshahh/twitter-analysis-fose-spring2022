@@ -9,6 +9,7 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.1",
+    "email-validator": "^2.0.4",
     "jest-dom": "^4.0.0",
     "mocha": "^9.2.2",
     "react": "^17.0.2",

@@ -83,3 +83,17 @@
   font-size: 1rem;
   color: #2c363f;
 }
+
+.error-div-home {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    color: #832232;
+    font-family: 'Work Sans',
+    sans-serif;
+    font-size: 0.875rem;
+    margin-left: 14.4375rem;
+}
+
+.wrong-twitter-username {
+  display: none;
+}
