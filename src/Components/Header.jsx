@@ -1,4 +1,7 @@
+import { useState } from "react";
 import "./Header.css";
+
+let globalVariables = require("./../globalVariables");
 
 function Header() {
   function onLogButtonClick() {
@@ -23,6 +26,7 @@ function Header() {
       >
         SIGN UP
       </button>
+      <div className="logged-user">Welcome :)</div>
     </div>
   );
 }

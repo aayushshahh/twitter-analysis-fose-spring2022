@@ -49,3 +49,11 @@
   background-color: transparent;
   color: #832232;
 }
+
+.logged-user {
+  font-family: 'Lora', serif;
+  font-size: 1.5rem;
+  color: #2c363f;
+  display: none;
+  margin-right: 2.5rem;
+}

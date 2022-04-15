@@ -25,6 +25,16 @@ function Sidebar() {
     setHistoryActive(true);
   }
 
+  function onLogOutClick() {
+    var logButton = document.getElementsByClassName("login-button");
+    var signButtom = document.getElementsByClassName("signup-button");
+    var logUser = document.getElementsByClassName("logged-user");
+
+    logButton[0].style.display = "inline-block";
+    signButtom[0].style.display = "inline-block";
+    logUser[0].style.display = "none";
+  }
+
   return (
     <div className="sidebar-base">
       <Link to="/" className="sidebar-link home-link" onClick={onHomeClick}>
@@ -71,7 +81,7 @@ function Sidebar() {
           <span className="history-sidebar-label sidebar-text">History</span>
         </div>
       </Link>
-      <div className="sidebar-content log-out-div">
+      <div className="sidebar-content log-out-div" onClick={onLogOutClick}>
         <i className="bx bx-log-out"></i>
         <span className="log-out-sidebar-label sidebar-text">Log out</span>
       </div>

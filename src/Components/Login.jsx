@@ -1,5 +1,8 @@
+import axios from "axios";
 import { useState } from "react";
 import "./LoginSignup.css";
+
+let globalVariables = require("./../globalVariables");
 
 function Login() {
   const [usernameValue, setUsernameValue] = useState("");
@@ -7,6 +10,12 @@ function Login() {
   function onSubmitHandler(event) {
     var eu = document.getElementsByClassName("empty-username");
     var ep = document.getElementsByClassName("empty-password");
+    var iu = document.getElementsByClassName("incorrect-username");
+    var ip = document.getElementsByClassName("incorrect-password");
+
+    var logButton = document.getElementsByClassName("login-button");
+    var signButtom = document.getElementsByClassName("signup-button");
+    var logUser = document.getElementsByClassName("logged-user");
     if (usernameValue === "") {
       eu[0].style.display = "inline-block";
     } else {
@@ -16,6 +25,40 @@ function Login() {
       ep[0].style.display = "inline-block";
     } else {
       ep[0].style.display = "none";
+    }
+    if (usernameValue !== "" && passwordValue !== "") {
+      var userLog = {
+        userCred: usernameValue,
+        userPassword: passwordValue,
+      };
+      axios({
+        url: "https://twitter-analysis-backend.herokuapp.com/login",
+        method: "POST",
+        data: userLog,
+      })
+        .then((res) => {
+          console.log(res);
+          if (res.data === "Logging Successful") {
+            logButton[0].style.display = "none";
+            signButtom[0].style.display = "none";
+            logUser[0].style.display = "block";
+            document.getElementById("loginModal").className = "login-modal";
+            iu[0].style.display = "none";
+            ip[0].style.display = "none";
+            globalVariables.currentUser = usernameValue;
+
+            //Clear all the values of the hooks
+            setUsernameValue("");
+            setPasswordValue("");
+          } else if (res.data === "Username incorrect") {
+            iu[0].style.display = "inline-block";
+          } else if (res.data === "Password Incorrect") {
+            ip[0].style.display = "inline-block";
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
     event.preventDefault();
   }

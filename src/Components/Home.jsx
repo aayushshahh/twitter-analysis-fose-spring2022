@@ -8,6 +8,28 @@ function Home() {
   const [personalityResult, setPersonalityResult] = useState("");
   const [personalityDescription, setPersonalityDescription] = useState("");
 
+  function userTweets() {
+    var wtu = document.getElementsByClassName("wrong-twitter-username");
+    axios({
+      url: "https://twitter-analysis-backend.herokuapp.com/getTweets",
+      method: "POST",
+      data: {
+        username: twitUsername,
+      },
+    })
+      .then((res) => {
+        var tweetData = res.data;
+        tweetData.forEach((tweet) => {
+          console.log(tweet.text);
+        });
+        // console.log(res.data);
+        wtu[0].style.display = "none";
+      })
+      .catch((err) => {
+        wtu[0].style.display = "inline-block";
+      });
+  }
+
   function handleTwitUsernameChange(event) {
     setTwitUsername(event.target.value);
   }
@@ -67,7 +89,11 @@ function Home() {
         </div>
       </div>
       <div className="action-buttons">
-        <button type="button" className="show-tweets-button">
+        <button
+          type="button"
+          className="show-tweets-button"
+          onClick={userTweets}
+        >
           SHOW TWEETS
         </button>
         <button

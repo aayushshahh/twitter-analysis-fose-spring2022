@@ -1,6 +1,10 @@
 import { useState } from "react";
 import * as EmailValidator from "email-validator";
+import axios from "axios";
 import "./LoginSignup.css";
+import { logDOM } from "@testing-library/react";
+
+let globalVariables = require("./../globalVariables");
 
 function Signup() {
   const [emailValue, setEmailValue] = useState("");
@@ -14,6 +18,10 @@ function Signup() {
     var efn = document.getElementsByClassName("empty-name");
     var ep = document.getElementsByClassName("empty-password-signup");
     var cp = document.getElementsByClassName("match-passwords");
+
+    var logButton = document.getElementsByClassName("login-button");
+    var signButtom = document.getElementsByClassName("signup-button");
+    var logUser = document.getElementsByClassName("logged-user");
     if (
       EmailValidator.validate(emailValue) &&
       usernameValue !== "" &&
@@ -22,6 +30,35 @@ function Signup() {
       confirmPasswordValue === passwordValue
     ) {
       // form data send for signup
+      var newUser = {
+        email: emailValue,
+        username: usernameValue,
+        fullName: fullNameValue,
+        password: passwordValue,
+      };
+      axios({
+        url: "https://twitter-analysis-backend.herokuapp.com/signup",
+        method: "POST",
+        data: newUser,
+      })
+        .then((res) => {
+          console.log(res);
+          logButton[0].style.display = "none";
+          signButtom[0].style.display = "none";
+          logUser[0].style.display = "block";
+          document.getElementById("signupModal").className = "signup-modal";
+          globalVariables.currentUser = usernameValue;
+
+          //Clear all the values of the hooks
+          setEmailValue("");
+          setUsernameValue("");
+          setFullNameValue("");
+          setPasswordValue("");
+          setConfirmPasswordValue("");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
       if (!EmailValidator.validate(emailValue)) {
         em[0].style.display = "inline-block";
