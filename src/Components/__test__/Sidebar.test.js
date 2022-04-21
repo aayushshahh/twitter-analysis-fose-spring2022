@@ -6,7 +6,6 @@ import { cleanup } from "@testing-library/react";
 import Sidebar from "./../Sidebar";
 import Home from "./../Home";
 import Profile from "./../Profile";
-import History from "./../History";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 afterEach(cleanup);
@@ -19,7 +18,6 @@ it("renders without crashing", () => {
         <Routes>
           <Route path="/" exact element={<Home />} />
           <Route path="/profile" exact element={<Profile />} />
-          <Route path="/history" exact element={<History />} />
         </Routes>
       </Router>
     </div>,
@@ -36,7 +34,6 @@ it("matches snapshot", () => {
         <Routes>
           <Route path="/" exact element={<Home />} />
           <Route path="/profile" exact element={<Profile />} />
-          <Route path="/history" exact element={<History />} />
         </Routes>
       </Router>
     </div>

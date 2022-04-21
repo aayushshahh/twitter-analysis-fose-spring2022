@@ -21,12 +21,6 @@ function Sidebar() {
     setHistoryActive(false);
   }
 
-  function onHistoryClick() {
-    setHomeActive(false);
-    setProfileActive(false);
-    setHistoryActive(true);
-  }
-
   function onLogOutClick() {
     var logButton = document.getElementsByClassName("login-button");
     var signButtom = document.getElementsByClassName("signup-button");
@@ -66,22 +60,6 @@ function Sidebar() {
         >
           <i className="bx bx-user"></i>
           <span className="profile-sidebar-label sidebar-text">Profile</span>
-        </div>
-      </Link>
-      <Link
-        to="/history"
-        className="sidebar-link history-link"
-        onClick={onHistoryClick}
-      >
-        <div
-          className={
-            historyActive
-              ? "active-sidebar sidebar-content history-div"
-              : "sidebar-content history-div"
-          }
-        >
-          <i className="bx bx-history"></i>
-          <span className="history-sidebar-label sidebar-text">History</span>
         </div>
       </Link>
       <div className="sidebar-content log-out-div" onClick={onLogOutClick}>
