@@ -97,3 +97,39 @@
 .wrong-twitter-username {
   display: none;
 }
+
+.tweet-display {
+  margin-top: 3.75rem;
+  margin-right: 2.5rem;
+  display: none;
+}
+
+.tweet-heading {
+  font-family: 'Lora', serif;
+  font-size: 1.5rem;
+  color: #2c363f;
+}
+
+.tweet-list {
+  margin-top: 1rem;
+  background-color: #fffbfa;
+  box-shadow: inset 5px 5px 10px rgba(40, 11, 15, 0.09),
+  inset -5px -5px 10px rgba(40, 11, 15, 0.09);
+  transition: 0.4s ease-in-out;
+  padding: 1.25rem 2.5rem;
+  border-radius: 1rem;
+}
+
+.tweet-username {
+  margin-top: 0;
+  font-family: 'Lora', serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #2c363f;
+}
+
+.tweet-data {
+  font-family: 'Work-Sans', sans-serif;
+  font-size: 1rem;
+  color: #2c363f;
+}

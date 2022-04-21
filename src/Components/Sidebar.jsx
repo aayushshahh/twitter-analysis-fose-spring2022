@@ -2,6 +2,8 @@ import "./Sidebar.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
+let globalVariables = require("./../globalVariables");
+
 function Sidebar() {
   const [homeActive, setHomeActive] = useState(true);
   const [profileActive, setProfileActive] = useState(false);
@@ -33,6 +35,7 @@ function Sidebar() {
     logButton[0].style.display = "inline-block";
     signButtom[0].style.display = "inline-block";
     logUser[0].style.display = "none";
+    globalVariables.currentUser = "";
   }
 
   return (

@@ -1,32 +1,37 @@
 import { useState } from "react";
 import axios from "axios";
 import "./Home.css";
+import globalVariables from "../globalVariables";
 
 function Home() {
   const [twitUsername, setTwitUsername] = useState("");
   const [personalityUsername, setPersonalityUsername] = useState("");
   const [personalityResult, setPersonalityResult] = useState("");
   const [personalityDescription, setPersonalityDescription] = useState("");
+  const [tweetData, setTweetData] = useState([]);
 
   function userTweets() {
     var wtu = document.getElementsByClassName("wrong-twitter-username");
+    var resultDiv = document.getElementsByClassName("personality-result");
+    var tweetDiv = document.getElementsByClassName("tweet-display");
     axios({
       url: "https://twitter-analysis-backend.herokuapp.com/getTweets",
-      method: "POST",
+      method: "GET",
       data: {
         username: twitUsername,
       },
     })
       .then((res) => {
-        var tweetData = res.data;
-        tweetData.forEach((tweet) => {
-          console.log(tweet.text);
-        });
-        // console.log(res.data);
+        var tempTweets = res.data;
+        setTweetData(tempTweets);
         wtu[0].style.display = "none";
+        resultDiv[0].style.display = "none";
+        tweetDiv[0].style.display = "block";
       })
       .catch((err) => {
         wtu[0].style.display = "inline-block";
+        resultDiv[0].style.display = "none";
+        tweetDiv[0].style.display = "none";
       });
   }
 
@@ -34,13 +39,16 @@ function Home() {
     setTwitUsername(event.target.value);
   }
 
-  function analyseTweets() {
+  async function analyseTweets() {
     var wtu = document.getElementsByClassName("wrong-twitter-username");
+    var tweetDiv = document.getElementsByClassName("tweet-display");
+    var resultDiv = document.getElementsByClassName("personality-result");
+    var pResult = "";
     if (twitUsername.charAt(0) !== "@") {
       var tempUsername = "@" + twitUsername;
       setTwitUsername(tempUsername);
     }
-    axios({
+    await axios({
       url: "https://personalitydetection.herokuapp.com/predict_personality",
       method: "POST",
       data: {
@@ -54,15 +62,34 @@ function Home() {
         } else {
           setPersonalityUsername(twitUsername);
         }
+        pResult = res.data.title;
         setPersonalityResult(res.data.title);
         setPersonalityDescription(res.data.description);
-        var resultDiv = document.getElementsByClassName("personality-result");
         resultDiv[0].style.display = "block";
         wtu[0].style.display = "none";
+        tweetDiv[0].style.display = "none";
       })
       .catch((err) => {
         wtu[0].style.display = "inline-block";
+        tweetDiv[0].style.display = "none";
+        resultDiv[0].style.display = "none";
       });
+    if (globalVariables.currentUser !== "") {
+      var historyData = {
+        username: globalVariables.currentUser,
+        history: {
+          twitUsername: twitUsername,
+          personality: pResult,
+        },
+      };
+      axios({
+        url: "http://localhost:8080/addHistory",
+        method: "POST",
+        data: historyData,
+      }).then((res) => {
+        console.log(res.data);
+      });
+    }
   }
 
   return (
@@ -111,6 +138,17 @@ function Home() {
         <p className="personality-result-description">
           {personalityDescription}
         </p>
+      </div>
+      <div className="tweet-display">
+        <div className="tweet-heading">Recent Tweets</div>
+        {tweetData.map((tweets) => {
+          return (
+            <div className="tweet-list" key={tweets.id}>
+              <p className="tweet-username">@{twitUsername}</p>
+              <p className="tweet-data">{tweets.text}</p>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
