@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import "./Home.css";
 import globalVariables from "../globalVariables";
+import { useSelector } from "react-redux";
 
 function Home() {
   const [twitUsername, setTwitUsername] = useState("");
@@ -9,6 +10,9 @@ function Home() {
   const [personalityResult, setPersonalityResult] = useState("");
   const [personalityDescription, setPersonalityDescription] = useState("");
   const [tweetData, setTweetData] = useState([]);
+  const currentLoggedUser = useSelector(
+    (state) => state.userLogStatus.currentUser
+  );
 
   function userTweets() {
     var wtu = document.getElementsByClassName("wrong-twitter-username");
@@ -16,7 +20,7 @@ function Home() {
     var tweetDiv = document.getElementsByClassName("tweet-display");
     axios({
       url: "https://twitter-analysis-backend.herokuapp.com/getTweets",
-      method: "GET",
+      method: "POST",
       data: {
         username: twitUsername,
       },
@@ -65,6 +69,26 @@ function Home() {
         pResult = res.data.title;
         setPersonalityResult(res.data.title);
         setPersonalityDescription(res.data.description);
+        if (currentLoggedUser !== "") {
+          var historyData = {
+            username: currentLoggedUser,
+            history: {
+              twitUsername: twitUsername,
+              personality: pResult,
+            },
+          };
+          axios({
+            url: "https://twitter-analysis-backend.herokuapp.com/addHistory",
+            method: "POST",
+            data: historyData,
+          })
+            .then((res) => {
+              console.log(res.data);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
         resultDiv[0].style.display = "block";
         wtu[0].style.display = "none";
         tweetDiv[0].style.display = "none";
@@ -74,22 +98,6 @@ function Home() {
         tweetDiv[0].style.display = "none";
         resultDiv[0].style.display = "none";
       });
-    if (globalVariables.currentUser !== "") {
-      var historyData = {
-        username: globalVariables.currentUser,
-        history: {
-          twitUsername: twitUsername,
-          personality: pResult,
-        },
-      };
-      axios({
-        url: "http://localhost:8080/addHistory",
-        method: "POST",
-        data: historyData,
-      }).then((res) => {
-        console.log(res.data);
-      });
-    }
   }
 
   return (
@@ -144,7 +152,7 @@ function Home() {
         {tweetData.map((tweets) => {
           return (
             <div className="tweet-list" key={tweets.id}>
-              <p className="tweet-username">@{twitUsername}</p>
+              <p className="tweet-username">{twitUsername}</p>
               <p className="tweet-data">{tweets.text}</p>
             </div>
           );

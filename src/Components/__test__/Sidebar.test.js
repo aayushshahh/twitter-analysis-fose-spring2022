@@ -7,19 +7,23 @@ import Sidebar from "./../Sidebar";
 import Home from "./../Home";
 import Profile from "./../Profile";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./../../store";
 
 afterEach(cleanup);
 it("renders without crashing", () => {
   const div = document.createElement("div");
   ReactDOM.render(
     <div>
-      <Router>
-        <Sidebar />
-        <Routes>
-          <Route path="/" exact element={<Home />} />
-          <Route path="/profile" exact element={<Profile />} />
-        </Routes>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <Sidebar />
+          <Routes>
+            <Route path="/" exact element={<Home />} />
+            <Route path="/profile" exact element={<Profile />} />
+          </Routes>
+        </Router>
+      </Provider>
     </div>,
     div
   );
@@ -29,13 +33,15 @@ it("renders without crashing", () => {
 it("matches snapshot", () => {
   const tree = renderer.create(
     <div>
-      <Router>
-        <Sidebar />
-        <Routes>
-          <Route path="/" exact element={<Home />} />
-          <Route path="/profile" exact element={<Profile />} />
-        </Routes>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <Sidebar />
+          <Routes>
+            <Route path="/" exact element={<Home />} />
+            <Route path="/profile" exact element={<Profile />} />
+          </Routes>
+        </Router>
+      </Provider>
     </div>
   ).toJSON;
   expect(tree).toMatchSnapshot();

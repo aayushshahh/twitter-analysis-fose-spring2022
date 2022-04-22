@@ -1,0 +1,49 @@
+.profile-title, .not-logged-in {
+    margin-top: 3.75rem;
+    margin-bottom: 1.35rem;
+    font-family: "Lora",
+    serif;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #2c363f;
+}
+
+.title-span {
+    font-family: "Lora", serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #2c363f;
+}
+
+.profile-name, .profile-username {
+    margin-top: 1.25rem;
+    margin-bottom: 0;
+    font-size: 1.5rem;
+    color: #2c363f;
+}
+
+.history-title {
+    margin-top: 2.5rem;
+    font-family: "Lora",
+    serif;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #2c363f;
+}
+
+th, td {
+    border: #2c363f solid;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    font-family: 'Work-Sans', sans-serif;
+}
+
+th {
+    font-size: 1.25rem;
+}
+
+td {
+    font-size: 1rem;
+}
+
+

@@ -1,24 +1,50 @@
 import "./Sidebar.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { userLoggedOut, userHistoryRetrieved } from "./../reducer";
+import axios from "axios";
 
 let globalVariables = require("./../globalVariables");
 
 function Sidebar() {
   const [homeActive, setHomeActive] = useState(true);
   const [profileActive, setProfileActive] = useState(false);
-  const [historyActive, setHistoryActive] = useState(false);
+  const currentLoggedUser = useSelector(
+    (state) => state.userLogStatus.currentUser
+  );
+  const dispatch = useDispatch();
 
   function onHomeClick() {
     setHomeActive(true);
     setProfileActive(false);
-    setHistoryActive(false);
   }
 
   function onProfileClick() {
     setHomeActive(false);
     setProfileActive(true);
-    setHistoryActive(false);
+    console.log(currentLoggedUser);
+    if (currentLoggedUser !== "") {
+      var userData = {
+        username: currentLoggedUser,
+      };
+      axios({
+        url: "https://twitter-analysis-backend.herokuapp.com/getHistory",
+        method: "POST",
+        data: userData,
+      })
+        .then((res) => {
+          console.log(res.data);
+          if (res.data == {}) {
+            dispatch(userHistoryRetrieved([]));
+          } else {
+            dispatch(userHistoryRetrieved(res.data));
+          }
+        })
+        .catch((err) => {
+          dispatch(userHistoryRetrieved([]));
+        });
+    }
   }
 
   function onLogOutClick() {
@@ -30,6 +56,7 @@ function Sidebar() {
     signButtom[0].style.display = "inline-block";
     logUser[0].style.display = "none";
     globalVariables.currentUser = "";
+    dispatch(userLoggedOut());
   }
 
   return (

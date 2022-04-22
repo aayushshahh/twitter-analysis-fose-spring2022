@@ -1,9 +1,13 @@
 import { useState } from "react";
 import "./Header.css";
+import { useSelector } from "react-redux";
 
 let globalVariables = require("./../globalVariables");
 
 function Header() {
+  const currentLoggedUser = useSelector(
+    (state) => state.userLogStatus.currentUser
+  );
   function onLogButtonClick() {
     document.getElementById("loginModal").className = "login-modal-active";
   }
@@ -26,7 +30,7 @@ function Header() {
       >
         SIGN UP
       </button>
-      <div className="logged-user">Welcome :)</div>
+      <div className="logged-user">Welcome {currentLoggedUser} :)</div>
     </div>
   );
 }

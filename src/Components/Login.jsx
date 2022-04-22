@@ -1,12 +1,18 @@
 import axios from "axios";
 import { useState } from "react";
 import "./LoginSignup.css";
+import { useSelector, useDispatch } from "react-redux";
+import { userLoggedIn } from "./../reducer";
 
 let globalVariables = require("./../globalVariables");
 
 function Login() {
   const [usernameValue, setUsernameValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
+  const currentLoggedUser = useSelector(
+    (state) => state.userLogStatus.currentUser
+  );
+  const dispatch = useDispatch();
   function onSubmitHandler(event) {
     var eu = document.getElementsByClassName("empty-username");
     var ep = document.getElementsByClassName("empty-password");
@@ -46,7 +52,7 @@ function Login() {
             iu[0].style.display = "none";
             ip[0].style.display = "none";
             globalVariables.currentUser = usernameValue;
-
+            dispatch(userLoggedIn(String(usernameValue)));
             //Clear all the values of the hooks
             setUsernameValue("");
             setPasswordValue("");
