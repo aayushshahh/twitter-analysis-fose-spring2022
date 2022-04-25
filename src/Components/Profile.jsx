@@ -1,24 +1,22 @@
 import "./Profile.css";
 import { useSelector } from "react-redux";
-import axios from "axios";
-import { useState } from "react";
 
 function Profile() {
   var counter = 0;
-  const currentLoggedUser = useSelector(
-    (state) => state.userLogStatus.currentUser
-  );
+  const currentLoggedUser = useSelector((state) => state.userLogStatus);
   const userHistory = useSelector((state) => state.userLogStatus.history);
-  if (currentLoggedUser !== "") {
+  if (currentLoggedUser.currentUser !== "") {
     return (
       <div className="profile-base">
         <div className="profile-div">
           <p className="profile-title">Your Profile</p>
           <p className="profile-name">
-            <span className="title-span">Name:</span> Aayush Shah
+            <span className="title-span">Name:</span>{" "}
+            {currentLoggedUser.currentUserName}
           </p>
           <p className="profile-username">
-            <span className="title-span">Username:</span> aayush2597
+            <span className="title-span">Username:</span>{" "}
+            {currentLoggedUser.currentUser}
           </p>
         </div>
         <div className="history-div">

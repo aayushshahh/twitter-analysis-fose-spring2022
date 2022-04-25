@@ -10,9 +10,7 @@ let globalVariables = require("./../globalVariables");
 function Sidebar() {
   const [homeActive, setHomeActive] = useState(true);
   const [profileActive, setProfileActive] = useState(false);
-  const currentLoggedUser = useSelector(
-    (state) => state.userLogStatus.currentUser
-  );
+  const currentLoggedUser = useSelector((state) => state.userLogStatus);
   const dispatch = useDispatch();
 
   function onHomeClick() {
@@ -23,26 +21,25 @@ function Sidebar() {
   function onProfileClick() {
     setHomeActive(false);
     setProfileActive(true);
-    console.log(currentLoggedUser);
     if (currentLoggedUser !== "") {
       var userData = {
-        username: currentLoggedUser,
+        username: currentLoggedUser.currentUser,
       };
       axios({
-        url: "https://twitter-analysis-backend.herokuapp.com/getHistory",
+        url: "http://localhost:8080/getHistory",
         method: "POST",
         data: userData,
       })
         .then((res) => {
           console.log(res.data);
-          if (res.data == {}) {
-            dispatch(userHistoryRetrieved([]));
-          } else {
-            dispatch(userHistoryRetrieved(res.data));
-          }
+          dispatch(userHistoryRetrieved(res.data));
         })
         .catch((err) => {
-          dispatch(userHistoryRetrieved([]));
+          dispatch(
+            userHistoryRetrieved([
+              { twitUsername: "No History", personality: "" },
+            ])
+          );
         });
     }
   }

@@ -38,13 +38,14 @@ function Login() {
         userPassword: passwordValue,
       };
       axios({
-        url: "https://twitter-analysis-backend.herokuapp.com/login",
+        url: "http://localhost:8080/login",
         method: "POST",
         data: userLog,
       })
         .then((res) => {
-          console.log(res);
-          if (res.data === "Logging Successful") {
+          console.log(res.data);
+          if (res.data.message === "Logging Successful") {
+            console.log(res.data.data);
             logButton[0].style.display = "none";
             signButtom[0].style.display = "none";
             logUser[0].style.display = "block";
@@ -52,13 +53,21 @@ function Login() {
             iu[0].style.display = "none";
             ip[0].style.display = "none";
             globalVariables.currentUser = usernameValue;
-            dispatch(userLoggedIn(String(usernameValue)));
+            var userDeets = {
+              username: res.data.data.username,
+              email: res.data.data.email,
+              name: res.data.data.fullName,
+            };
+            dispatch(userLoggedIn(userDeets));
             //Clear all the values of the hooks
             setUsernameValue("");
             setPasswordValue("");
-          } else if (res.data === "Username incorrect") {
+          } else if (
+            res.data.message === "Username Incorrect" ||
+            res.data.message === "Email Incorrect"
+          ) {
             iu[0].style.display = "inline-block";
-          } else if (res.data === "Password Incorrect") {
+          } else if (res.data.message === "Password Incorrect") {
             ip[0].style.display = "inline-block";
           }
         })
