@@ -38,7 +38,7 @@ function Login() {
         userPassword: passwordValue,
       };
       axios({
-        url: "http://localhost:8080/login",
+        url: "https://twitter-analysis-backend.herokuapp.com/login",
         method: "POST",
         data: userLog,
       })

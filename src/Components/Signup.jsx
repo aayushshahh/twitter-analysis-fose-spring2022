@@ -2,7 +2,8 @@ import { useState } from "react";
 import * as EmailValidator from "email-validator";
 import axios from "axios";
 import "./LoginSignup.css";
-import { logDOM } from "@testing-library/react";
+import { useSelector, useDispatch } from "react-redux";
+import { userLoggedIn } from "./../reducer";
 
 let globalVariables = require("./../globalVariables");
 
@@ -12,6 +13,8 @@ function Signup() {
   const [fullNameValue, setFullNameValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [confirmPasswordValue, setConfirmPasswordValue] = useState("");
+  const dispatch = useDispatch();
+
   function onSubmitHandler(event) {
     var em = document.getElementsByClassName("incorrect-email");
     var du = document.getElementsByClassName("duplicate-username");
@@ -48,7 +51,12 @@ function Signup() {
           logUser[0].style.display = "block";
           document.getElementById("signupModal").className = "signup-modal";
           globalVariables.currentUser = usernameValue;
-
+          var userDeets = {
+            username: usernameValue,
+            email: emailValue,
+            name: fullNameValue,
+          };
+          dispatch(userLoggedIn(userDeets));
           //Clear all the values of the hooks
           setEmailValue("");
           setUsernameValue("");

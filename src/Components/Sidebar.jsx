@@ -26,7 +26,7 @@ function Sidebar() {
         username: currentLoggedUser.currentUser,
       };
       axios({
-        url: "http://localhost:8080/getHistory",
+        url: "https://twitter-analysis-backend.herokuapp.com/getHistory",
         method: "POST",
         data: userData,
       })
