@@ -20,17 +20,25 @@ function Header() {
       <a href="/" className="header-title-link">
         TWITTER ANALYSIS
       </a>
-      <button type="button" className="login-button" onClick={onLogButtonClick}>
+      <button
+        type="button"
+        className="login-button"
+        onClick={onLogButtonClick}
+        data-testid="signInButton"
+      >
         SIGN IN
       </button>
       <button
         type="button"
         className="signup-button"
         onClick={onSignUpButtonClick}
+        data-testid="signUpButton"
       >
         SIGN UP
       </button>
-      <div className="logged-user">Welcome {currentLoggedUser} :)</div>
+      <div className="logged-user" data-testid="loggedUser">
+        Welcome {currentLoggedUser} :)
+      </div>
     </div>
   );
 }

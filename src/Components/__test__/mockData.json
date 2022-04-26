@@ -1,0 +1,14 @@
+{
+    "personality": {
+        "username": "@johndoe",
+        "personality": "INFP"
+    },
+    "tweets": [
+        {
+            "text": "This is the first tweet"
+        },
+        {
+            "text": "This is the second tweet"
+        }
+    ]
+}

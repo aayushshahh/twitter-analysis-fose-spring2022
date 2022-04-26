@@ -2,17 +2,25 @@ import { useState } from "react";
 import axios from "axios";
 import "./Home.css";
 import globalVariables from "../globalVariables";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  twitUsernameChange,
+  setTweetData,
+  setPersonalityData,
+} from "./../documentStateSlice";
 
 function Home() {
-  const [twitUsername, setTwitUsername] = useState("");
-  const [personalityUsername, setPersonalityUsername] = useState("");
-  const [personalityResult, setPersonalityResult] = useState("");
-  const [personalityDescription, setPersonalityDescription] = useState("");
-  const [tweetData, setTweetData] = useState([]);
   const currentLoggedUser = useSelector(
     (state) => state.userLogStatus.currentUser
   );
+  const twitUsername = useSelector(
+    (state) => state.docStateStatus.twitUsernameChange
+  );
+  const personalityData = useSelector(
+    (state) => state.docStateStatus.personality
+  );
+  const tweetData = useSelector((state) => state.docStateStatus.tweetData);
+  const dispatch = useDispatch();
 
   function userTweets() {
     var wtu = document.getElementsByClassName("wrong-twitter-username");
@@ -27,7 +35,7 @@ function Home() {
     })
       .then((res) => {
         var tempTweets = res.data;
-        setTweetData(tempTweets);
+        dispatch(setTweetData(tempTweets));
         wtu[0].style.display = "none";
         resultDiv[0].style.display = "none";
         tweetDiv[0].style.display = "block";
@@ -40,7 +48,7 @@ function Home() {
   }
 
   function handleTwitUsernameChange(event) {
-    setTwitUsername(event.target.value);
+    dispatch(twitUsernameChange(event.target.value));
   }
 
   async function analyseTweets() {
@@ -50,7 +58,7 @@ function Home() {
     var pResult = "";
     if (twitUsername.charAt(0) !== "@") {
       var tempUsername = "@" + twitUsername;
-      setTwitUsername(tempUsername);
+      dispatch(twitUsernameChange(tempUsername));
     }
     await axios({
       url: "https://personalitydetection.herokuapp.com/predict_personality",
@@ -61,14 +69,20 @@ function Home() {
     })
       .then((res) => {
         console.log(res.data);
+        var personalityTempData = {
+          username: "",
+          result: "",
+          description: "",
+        };
         if (twitUsername.charAt(0) !== "@") {
-          setPersonalityUsername("@" + twitUsername);
+          personalityTempData.username = "@" + twitUsername;
         } else {
-          setPersonalityUsername(twitUsername);
+          personalityTempData.username = twitUsername;
         }
         pResult = res.data.title;
-        setPersonalityResult(res.data.title);
-        setPersonalityDescription(res.data.description);
+        personalityTempData.result = res.data.title;
+        personalityTempData.description = res.data.description;
+        dispatch(setPersonalityData(personalityTempData));
         if (currentLoggedUser !== "") {
           var historyData = {
             username: currentLoggedUser,
@@ -113,6 +127,7 @@ function Home() {
             type="text"
             name="username"
             placeholder="@whousername"
+            data-testid="userInput"
             value={twitUsername}
             onChange={handleTwitUsernameChange}
           ></input>
@@ -128,26 +143,29 @@ function Home() {
           type="button"
           className="show-tweets-button"
           onClick={userTweets}
+          data-testid="showTweets"
         >
           SHOW TWEETS
         </button>
         <button
           type="button"
           className="analyse-profile-button"
+          data-testid="personalityTest"
           onClick={analyseTweets}
         >
           ANALYSE PERSONALITY
         </button>
       </div>
-      <div className="personality-result">
-        <p className="personality-result-title">
-          {personalityUsername} has the personality {personalityResult}
+      <div className="personality-result" data-testid="personalityResult">
+        <p className="personality-result-title" data-testid="perTitle">
+          {personalityData.personalityUsername} has the personality{" "}
+          {personalityData.personalityResult}
         </p>
         <p className="personality-result-description">
-          {personalityDescription}
+          {personalityData.personalityDesc}
         </p>
       </div>
-      <div className="tweet-display">
+      <div className="tweet-display" data-testid="tweetDisplay">
         <div className="tweet-heading">Recent Tweets</div>
         {tweetData.map((tweets) => {
           return (

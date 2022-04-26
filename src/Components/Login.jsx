@@ -87,16 +87,22 @@ function Login() {
     document.getElementById("loginModal").className = "login-modal";
   }
   return (
-    <div id="loginModal" className="login-modal">
+    <div id="loginModal" className="login-modal" data-testid="loginModalTest">
       <i className="bx bx-x" onClick={closeButtonClick}></i>
-      <div className="login-title">Sign In</div>
+      <div className="login-title" data-testid="signInLabel">
+        Sign In
+      </div>
       <form onSubmit={onSubmitHandler}>
-        <label className="username-login-label">
+        <label
+          className="username-login-label"
+          data-testid="usernameLoginLabel"
+        >
           Username/E-mail
           <input
             className="username-login-input"
             type="text"
             placeholder="whoisthis@whomail.com / whousername"
+            data-testid="loginUsername"
             value={usernameValue}
             onChange={handleUsernameChange}
           ></input>
@@ -113,6 +119,7 @@ function Login() {
             className="password-login-input"
             type="password"
             placeholder="s3cret"
+            data-testid="loginPassword"
             value={passwordValue}
             onChange={handlePasswordChange}
           ></input>
@@ -121,7 +128,11 @@ function Login() {
           <span className="empty-password">password can not be empty</span>
           <span className="incorrect-password">incorrect password</span>
         </div>
-        <button type="submit" className="submit-button">
+        <button
+          type="submit"
+          className="submit-button"
+          data-testid="logInButton"
+        >
           LOG IN
         </button>
       </form>
