@@ -113,7 +113,7 @@ function Home() {
   }
 
   return (
-    <div className="home-base">
+    <div className="home-base" data-testid="homeBase">
       <div className="heading-sentence">
         Who would you like to search for today?
       </div>

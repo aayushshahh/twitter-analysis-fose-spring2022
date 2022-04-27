@@ -7,7 +7,7 @@ function Profile() {
   const userHistory = useSelector((state) => state.userLogStatus.history);
   if (currentLoggedUser.currentUser !== "") {
     return (
-      <div className="profile-base">
+      <div className="profile-base" data-testid="profileBaseL">
         <div className="profile-div">
           <p className="profile-title">Your Profile</p>
           <p className="profile-name">
@@ -45,7 +45,7 @@ function Profile() {
     );
   } else {
     return (
-      <div className="profile-base">
+      <div className="profile-base" data-testid="profileBaseNL">
         <div className="not-logged-in">Please Log in to View</div>
       </div>
     );

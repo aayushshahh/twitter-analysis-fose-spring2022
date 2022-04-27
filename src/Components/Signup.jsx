@@ -39,11 +39,10 @@ function Signup() {
         fullName: fullNameValue,
         password: passwordValue,
       };
-      axios({
-        url: "https://twitter-analysis-backend.herokuapp.com/signup",
-        method: "POST",
-        data: newUser,
-      })
+      axios
+        .post("https://twitter-analysis-backend.herokuapp.com/signup", {
+          data: newUser,
+        })
         .then((res) => {
           console.log(res);
           logButton[0].style.display = "none";
@@ -143,7 +142,11 @@ function Signup() {
     document.getElementById("signupModal").className = "signup-modal";
   }
   return (
-    <div id="signupModal" className="signup-modal">
+    <div
+      id="signupModal"
+      className="signup-modal"
+      data-testid="signupModalTest"
+    >
       <i className="bx bx-x" onClick={closeButtonClick}></i>
       <div className="login-title">Sign Up</div>
       <form onSubmit={onSubmitHandler}>
@@ -153,6 +156,7 @@ function Signup() {
             className="username-login-input"
             type="email"
             placeholder="whoisthis@whomail.com"
+            data-testid="signupEmail"
             value={emailValue}
             onChange={handleEmailChange}
           ></input>
@@ -166,6 +170,7 @@ function Signup() {
             className="username-login-input"
             type="text"
             placeholder="whousername"
+            data-testid="signupUsername"
             value={usernameValue}
             onChange={handleUsernameChange}
           ></input>
@@ -181,6 +186,7 @@ function Signup() {
             className="username-login-input"
             type="text"
             placeholder="John Doe"
+            data-testid="signupName"
             value={fullNameValue}
             onChange={handleFullNameChange}
           ></input>
@@ -194,6 +200,7 @@ function Signup() {
             className="password-login-input"
             type="password"
             placeholder="s3cret"
+            data-testid="signupPassword"
             value={passwordValue}
             onChange={handlePasswordChange}
           ></input>
@@ -207,6 +214,7 @@ function Signup() {
             className="password-login-input"
             type="password"
             placeholder="s3cret"
+            data-testid="signupCPassword"
             value={confirmPasswordValue}
             onChange={handleConfirmPasswordChange}
           ></input>
@@ -214,7 +222,11 @@ function Signup() {
         <div className="error-div">
           <span className="match-passwords">passwords do not match</span>
         </div>
-        <button type="submit" className="submit-button">
+        <button
+          type="submit"
+          className="submit-button"
+          data-testid="submitButtonSignup"
+        >
           SIGN UP
         </button>
       </form>

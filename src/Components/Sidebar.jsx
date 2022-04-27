@@ -58,7 +58,12 @@ function Sidebar() {
 
   return (
     <div className="sidebar-base">
-      <Link to="/" className="sidebar-link home-link" onClick={onHomeClick}>
+      <Link
+        to="/"
+        className="sidebar-link home-link"
+        data-testid="homeButton"
+        onClick={onHomeClick}
+      >
         <div
           className={
             homeActive
@@ -73,6 +78,7 @@ function Sidebar() {
       <Link
         to="/profile"
         className="sidebar-link profile-link"
+        data-testid="profileButton"
         onClick={onProfileClick}
       >
         <div
@@ -86,7 +92,11 @@ function Sidebar() {
           <span className="profile-sidebar-label sidebar-text">Profile</span>
         </div>
       </Link>
-      <div className="sidebar-content log-out-div" onClick={onLogOutClick}>
+      <div
+        className="sidebar-content log-out-div"
+        data-testid="logoutButton"
+        onClick={onLogOutClick}
+      >
         <i className="bx bx-log-out"></i>
         <span className="log-out-sidebar-label sidebar-text">Log out</span>
       </div>
