@@ -5,10 +5,18 @@
     },
     "tweets": [
         {
+            "id": 151151512612,
             "text": "This is the first tweet"
         },
         {
+            "id": 16235265232,
             "text": "This is the second tweet"
         }
-    ]
+    ],
+    "user": {
+        "username": "@johndoe",
+        "email": "johndoe@gmail.com",
+        "fullName": "John Doe",
+        "password": "johndoe123"
+    }
 }

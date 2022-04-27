@@ -35,6 +35,7 @@ function Home() {
     })
       .then((res) => {
         var tempTweets = res.data;
+        console.log(res.data);
         dispatch(setTweetData(tempTweets));
         wtu[0].style.display = "none";
         resultDiv[0].style.display = "none";
