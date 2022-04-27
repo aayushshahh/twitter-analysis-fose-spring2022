@@ -1,7 +1,8 @@
 {
     "personality": {
         "username": "@johndoe",
-        "personality": "INFP"
+        "title": "INFP",
+        "description": "This is the personality description thank you"
     },
     "tweets": [
         {

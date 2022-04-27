@@ -37,11 +37,10 @@ function Login() {
         userCred: usernameValue,
         userPassword: passwordValue,
       };
-      axios({
-        url: "https://twitter-analysis-backend.herokuapp.com/login",
-        method: "POST",
-        data: userLog,
-      })
+      axios
+        .post("https://twitter-analysis-backend.herokuapp.com/login", {
+          data: userLog,
+        })
         .then((res) => {
           console.log(res.data);
           if (res.data.message === "Logging Successful") {

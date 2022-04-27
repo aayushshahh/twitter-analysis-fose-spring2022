@@ -3,7 +3,7 @@ import "@testing-library/jest-dom/extend-expect";
 import App from "./../../App";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { configureStore } from "@reduxjs/toolkit";
 import userLogReducer from "./../../reducer";
@@ -25,10 +25,9 @@ afterEach(cleanup);
 beforeEach(() => {
   store = createTestStore();
 });
-jest.mock("axios");
 
 describe("User is able to get the tweets", () => {
-  it("fetches the tweet", () => {
+  it("fetches the tweet", async () => {
     render(
       <Provider store={store}>
         <App />
@@ -39,14 +38,16 @@ describe("User is able to get the tweets", () => {
       "value",
       "@johndoe"
     );
-    axios.mockResolvedValueOnce({ data: ApiData.tweets });
-    userEvent.click(screen.getByTestId("showTweets"));
-    expect(axios).toHaveBeenCalled();
+    const postSpy = jest.spyOn(axios, "post");
+    postSpy.mockResolvedValueOnce({ data: ApiData.tweets });
+    await userEvent.click(screen.getByTestId("showTweets"));
+    expect(postSpy).toHaveBeenCalled();
+    expect(screen.getByText("This is the first tweet")).toBeInTheDocument();
   });
 });
 
 describe("User is able to get the personality", () => {
-  it("fetches the personality", () => {
+  it("fetches the personality", async () => {
     render(
       <Provider store={store}>
         <App />
@@ -57,8 +58,43 @@ describe("User is able to get the personality", () => {
       "value",
       "@johndoe"
     );
-    axios.mockResolvedValueOnce({ data: ApiData.personality });
+    const postSpy = jest.spyOn(axios, "post");
+    postSpy.mockResolvedValueOnce({ data: ApiData.personality });
     userEvent.click(screen.getByTestId("personalityTest"));
-    expect(axios).toHaveBeenCalled();
+    expect(postSpy).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(screen.getByText(/^@johndoe.*.INFP.*$/i)).toBeInTheDocument();
+    });
+  });
+});
+
+describe("User is able to login successfully", () => {
+  it("logs the user in", async () => {
+    render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+    userEvent.click(screen.getByTestId("signInButton"));
+    expect(screen.getByTestId("loginModalTest")).toBeInTheDocument();
+    userEvent.type(screen.getByTestId("loginUsername"), "johndoe");
+    userEvent.type(screen.getByTestId("loginPassword"), "johndoe123");
+    expect(screen.getByTestId("loginUsername")).toHaveAttribute(
+      "value",
+      "johndoe"
+    );
+    expect(screen.getByTestId("loginPassword")).toHaveAttribute(
+      "value",
+      "johndoe123"
+    );
+    const postSpy = jest.spyOn(axios, "post");
+    postSpy.mockResolvedValueOnce({
+      data: { message: "Logging Successful", data: ApiData.user },
+    });
+    userEvent.click(screen.getByTestId("logInButton"));
+    expect(postSpy).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(screen.getByText(/^Welcome.*.johndoe.*$/i)).toBeInTheDocument();
+    });
   });
 });

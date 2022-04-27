@@ -26,13 +26,12 @@ function Home() {
     var wtu = document.getElementsByClassName("wrong-twitter-username");
     var resultDiv = document.getElementsByClassName("personality-result");
     var tweetDiv = document.getElementsByClassName("tweet-display");
-    axios({
-      url: "https://twitter-analysis-backend.herokuapp.com/getTweets",
-      method: "POST",
-      data: {
-        username: twitUsername,
-      },
-    })
+    axios
+      .post("https://twitter-analysis-backend.herokuapp.com/getTweets", {
+        data: {
+          username: twitUsername,
+        },
+      })
       .then((res) => {
         var tempTweets = res.data;
         console.log(res.data);
@@ -61,13 +60,12 @@ function Home() {
       var tempUsername = "@" + twitUsername;
       dispatch(twitUsernameChange(tempUsername));
     }
-    await axios({
-      url: "https://personalitydetection.herokuapp.com/predict_personality",
-      method: "POST",
-      data: {
-        username: twitUsername,
-      },
-    })
+    await axios
+      .post("https://personalitydetection.herokuapp.com/predict_personality", {
+        data: {
+          username: twitUsername,
+        },
+      })
       .then((res) => {
         console.log(res.data);
         var personalityTempData = {
@@ -92,11 +90,10 @@ function Home() {
               personality: pResult,
             },
           };
-          axios({
-            url: "https://twitter-analysis-backend.herokuapp.com/addHistory",
-            method: "POST",
-            data: historyData,
-          })
+          axios
+            .post("https://twitter-analysis-backend.herokuapp.com/addHistory", {
+              data: historyData,
+            })
             .then((res) => {
               console.log(res.data);
             })
