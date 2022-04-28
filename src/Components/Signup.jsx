@@ -41,7 +41,7 @@ function Signup() {
       };
       axios
         .post("https://twitter-analysis-backend.herokuapp.com/signup", {
-          data: newUser,
+          newUser,
         })
         .then((res) => {
           console.log(res);

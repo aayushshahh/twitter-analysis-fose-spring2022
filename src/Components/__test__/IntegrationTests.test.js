@@ -148,20 +148,6 @@ describe("User is able to signup successfully", () => {
   });
 });
 
-describe("Sidebar works as expected", () => {
-  it("changes page based on the sidebar", async () => {
-    render(
-      <Provider store={store}>
-        <App />
-      </Provider>
-    );
-    userEvent.click(screen.getByTestId("profileButton"));
-    expect(screen.getByTestId("profileBaseNL")).toBeInTheDocument();
-    userEvent.click(screen.getByTestId("homeButton"));
-    expect(screen.getByTestId("homeBase")).toBeInTheDocument();
-  });
-});
-
 describe("Profile shows proper info on logging in / signing in", () => {
   it("displays the correct details on user log in", async () => {
     render(

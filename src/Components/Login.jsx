@@ -39,7 +39,7 @@ function Login() {
       };
       axios
         .post("https://twitter-analysis-backend.herokuapp.com/login", {
-          data: userLog,
+          userLog,
         })
         .then((res) => {
           console.log(res.data);

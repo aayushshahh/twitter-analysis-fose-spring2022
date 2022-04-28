@@ -28,9 +28,7 @@ function Home() {
     var tweetDiv = document.getElementsByClassName("tweet-display");
     axios
       .post("https://twitter-analysis-backend.herokuapp.com/getTweets", {
-        data: {
-          username: twitUsername,
-        },
+        username: twitUsername,
       })
       .then((res) => {
         var tempTweets = res.data;
@@ -62,9 +60,7 @@ function Home() {
     }
     await axios
       .post("https://personalitydetection.herokuapp.com/predict_personality", {
-        data: {
-          username: twitUsername,
-        },
+        username: twitUsername,
       })
       .then((res) => {
         console.log(res.data);
@@ -92,7 +88,7 @@ function Home() {
           };
           axios
             .post("https://twitter-analysis-backend.herokuapp.com/addHistory", {
-              data: historyData,
+              historyData,
             })
             .then((res) => {
               console.log(res.data);
