@@ -40,9 +40,7 @@ function Signup() {
         password: passwordValue,
       };
       axios
-        .post("https://twitter-analysis-backend.herokuapp.com/signup", {
-          newUser,
-        })
+        .post("https://twitter-analysis-backend.herokuapp.com/signup", newUser)
         .then((res) => {
           console.log(res);
           logButton[0].style.display = "none";

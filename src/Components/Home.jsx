@@ -87,9 +87,10 @@ function Home() {
             },
           };
           axios
-            .post("https://twitter-analysis-backend.herokuapp.com/addHistory", {
-              historyData,
-            })
+            .post(
+              "https://twitter-analysis-backend.herokuapp.com/addHistory",
+              historyData
+            )
             .then((res) => {
               console.log(res.data);
             })
