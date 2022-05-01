@@ -22,4 +22,6 @@ Our project aims at creating a web app that can analyse and predict a user's per
 
 # ArchitecturalDiagram
 
-<img src="Architectural-Diagram.jpeg" width="500"/>
+<img src="Architectural-Diagram-updated.png" width="500"/>
+
+Read Wiki for more info
